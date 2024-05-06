@@ -1,0 +1,666 @@
+:root {
+  --primary: #10405a;
+  --bg: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  /* border: none; */
+  text-decoration: none;
+}
+
+body {
+  font-family: "ubuntu", sans-serif;
+  background-color: var(--bg);
+  /* color: #fff; */
+  background-image: url("/img/bg.png");
+  background-size: cover; /* Untuk menutupi seluruh area elemen body */
+  background-position: center; /* Untuk mengatur posisi gambar ke tengah */
+  background-repeat: no-repeat; /* Untuk mencegah pengulangan gambar */
+}
+
+/* Navbar */
+.navbar {
+  justify-content: space-between;
+  padding: 1.4rem 7%;
+  align-items: center;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.8rem 7%; /* Mengurangi padding atas dan bawah */
+  z-index: 9999;
+  background-color: transparent; /* Transparan pada awalnya */
+  transition: background-color 0.3s ease, padding 0.3s ease; /* Transisi warna latar belakang dan padding */
+}
+
+.navbar.scrolled {
+  background-color: #fff; /* Mengubah warna latar belakang menjadi putih */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Menambahkan box shadow */
+  padding: 0.4rem 7%; /* Mengurangi padding atas dan bawah ketika di-scroll */
+}
+
+.navbar .navbar-logo {
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: small;
+}
+
+.navbar .navbar-logo img {
+  width: 20%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.navbar a img.logo {
+  width: 43px;
+  margin-right: 10px;
+}
+
+.navbar a span {
+  font-weight: bold;
+}
+.navbar .navbar-nav {
+  margin: 0 auto;
+}
+
+.navbar-nav a {
+  margin-right: 10px;
+  color: var(--primary);
+}
+
+.navbar .navbar-nav a:hover {
+  color: #05afaa;
+  border-bottom: solid 2px #05afaa;
+}
+
+.navbar .navbar-nav button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f4cd0c;
+  cursor: pointer;
+  border: none;
+}
+
+.navbar .navbar-nav button:hover {
+  border-radius: 10px;
+  background-color: #d9b809;
+}
+
+.navbar .navbar-extra {
+  margin-left: auto;
+}
+
+#hamburger-menu {
+  display: none;
+}
+
+/* Main(content) */
+section.jumbotron {
+  margin-top: 150px;
+  margin-bottom: 100px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto 0;
+  max-width: 1200px;
+}
+
+.col {
+  width: 40%;
+  margin: 0 20px;
+  /* text-align; */
+}
+
+.container .col .title {
+  font-size: 60px; /* Memperbesar ukuran judul */
+  color: var(--primary);
+  margin-bottom: 30px; /* Menambah jarak antara judul dan teks */
+}
+
+.container .col .text {
+  font-size: 24px; /* Memperbesar ukuran teks */
+  color: var(--primary);
+  line-height: 36px; /* Meningkatkan jarak antara baris teks */
+}
+
+.container .col img {
+  max-width: 100%;
+}
+
+/* Grid */
+
+/* filter buttons */
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.filter-buttons button {
+  margin-right: 10px;
+  border-radius: 22px;
+  border: solid 1px var(--primary);
+  color: #10405a;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: background-color 0.3s, color 0.3s; /* tambahkan transisi untuk perubahan warna latar belakang dan teks */
+}
+
+.filter-buttons button.active {
+  background-color: #05afaa;
+  color: white;
+}
+
+.filter-buttons button:hover {
+  background-color: #05afaa;
+  color: white;
+}
+
+/* item */
+.items-container {
+  display: flex;
+  flex-wrap: wrap; /* Menyusun elemen dalam beberapa baris */
+  justify-content: center; /* Menengahkan elemen secara horizontal */
+}
+
+.item {
+  margin: 10px;
+  width: calc(30% - 20px);
+  /* background-color: lightgray; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 5px;
+  position: relative; /* Menambahkan posisi relatif untuk menempatkan teks */
+}
+
+.item img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50px;
+  transition: filter 0.3s ease; /* Menambahkan transisi untuk efek blur */
+}
+
+.item:hover img {
+  filter: blur(3px); /* Menambahkan efek blur saat hover */
+}
+
+.item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Ubah warna latar belakang dan atur transparansi */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Animasi opacity saat hover */
+}
+
+.item:hover .overlay {
+  opacity: 1;
+}
+
+.item .overlay span {
+  color: #000; /* Warna teks hitam */
+  font-size: 50px; /* Ukuran teks */
+  font-weight: bold; /* Ketebalan teks */
+  text-align: center; /* Pusatkan teks */
+}
+
+.item:hover {
+  cursor: pointer; /* Menambahkan kursor pointer saat hover */
+}
+
+.item a {
+  position: relative; /* Memberi posisi relatif untuk mengatur z-index overlay */
+  display: block; /* Membuat link menjadi elemen block agar menutupi gambar dan overlay */
+  text-decoration: none; /* Menghilangkan garis bawah pada link */
+  color: inherit; /* Mewarisi warna teks dari parent */
+}
+
+/* card */
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #05afaa;
+  width: 80%;
+  border-radius: 30px;
+  margin-top: -100px !important;
+}
+
+.cards .container .col {
+  flex: 1;
+  margin-left: 30px;
+  margin-top: 40px;
+  /* border: solid 3px red; */
+}
+
+.cards .container .col .title {
+  font-size: 61px;
+  color: #fff;
+}
+
+.cards .container .col .text {
+  font-size: 16px;
+}
+.cards .container .col button {
+  background-color: #f4cd0c;
+  color: #10405a;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: auto;
+  padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.cards .container button:hover {
+  background-color: #d9b809;
+}
+
+.button-container {
+  display: flex;
+  align-items: center; /* Untuk membuat teks dan ikon sejajar secara vertikal */
+}
+
+.button-container .icon {
+  margin-left: 5px; /* Jarak antara teks dan ikon */
+}
+
+/* info section */
+.info {
+  margin-top: 250px;
+  background-color: #07324a;
+}
+
+.container-info {
+  padding-top: 50px;
+}
+
+section.info .container {
+  display: flex;
+  justify-content: center; /* Untuk menengahkan secara horizontal */
+  align-items: center; /* Untuk menengahkan secara vertikal */
+  margin: 0 auto; /* Untuk menengahkan secara horizontal */
+  padding-bottom: 50px;
+}
+
+section.info .col {
+  margin: 0;
+  width: 30%;
+}
+
+section.info .container .col h2 {
+  color: white;
+}
+section.info .container .col p {
+  color: white;
+  margin-top: 10px;
+}
+
+section.info .container .col p span {
+  line-height: 30px;
+}
+
+.footer {
+  background-color: #10405a;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo,
+.rights,
+.social {
+  display: flex;
+  align-items: center;
+}
+
+.logo img,
+.rights img,
+.social img {
+  width: 40px; /* Ubah sesuai kebutuhan */
+  height: 40px; /* Ubah sesuai kebutuhan */
+  margin-right: 10px;
+}
+
+.logo span,
+.rights span {
+  font-weight: bold;
+}
+
+.social a {
+  color: white;
+  margin-right: 10px;
+}
+
+.social a:hover {
+  color: #05afaa;
+}
+
+/* modal */
+
+/* Sisipkan gaya CSS ini untuk menampilkan modal */
+/* Tambahkan transisi untuk modal */
+
+/* Default styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  transform: translateY(-50px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--primary);
+  font-size: 32px;
+}
+
+.modal-content p,
+.modal-content ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.modal-content ul {
+  padding-left: 20px;
+}
+
+.modal-content li {
+  list-style-type: disc;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.close {
+  color: #555;
+  float: right;
+  font-size: 36px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Media Queries */
+/* Laptop */
+@media (max-width: 1141px) {
+  html {
+    font-size: 85%;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .navbar-nav a {
+    border: solid 0.5px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative; /* Atau relative */
+    /* Atur koordinat x dan y sesuai kebutuhan */
+  }
+
+  .navbar-nav a:hover {
+    color: #05afaa;
+  }
+
+  .navbar .navbar-nav button {
+    /* padding: 10px; */
+    padding: 0;
+    border: solid 0.5px;
+    /* border-radius: 5px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative; /* Atau relative */
+  }
+
+  /* main */
+  .container {
+    flex-direction: column;
+    align-items: center;
+    /* border: solid 5px pink; */
+  }
+
+  .col {
+    width: 80%;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .container .col .title {
+    /* font-size: 50px; */
+    text-align: left;
+  }
+
+  .container .col .text {
+    /* font-size: 14px;  */
+    text-align: left;
+  }
+
+  .container .col img {
+    width: 100%; /* Mengubah lebar gambar menjadi penuh */
+    height: auto; /* Mengatur ketinggian gambar agar proporsional */
+  }
+
+  /* info */
+  .info .container {
+    flex-direction: column;
+    /* align-items: center; */
+    /* border: solid 5px pink; */
+  }
+
+  .info .container .col {
+    width: 80%;
+    margin: 20px 0;
+    /* text-align: center; */
+  }
+
+  .logo span,
+  .rights span {
+    display: none;
+  }
+}
+
+/* Tablet */
+@media (max-width: 758px) {
+  html {
+    font-size: 62.5%;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+  /* .navbar {
+    justify-content: flex-start;
+  } */
+
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    color: var(--primary);
+    font-weight: bold;
+    text-align: left; /* Menjadikan teks pada .navbar-logo menjadi kiri */
+  }
+
+  .navbar .navbar-nav {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    background-color: #f4cd0c;
+    width: 30rem;
+    height: 100vh;
+    transition: 0.3s;
+  }
+
+  .navbar .navbar-nav.active {
+    right: 0;
+  }
+
+  .navbar .navbar-nav a,
+  .navbar .navbar-nav button {
+    color: #4a748b;
+    display: block;
+    margin: 1.5rem;
+    padding: 0.5rem;
+    font-size: small;
+  }
+
+  #hamburger-menu {
+    display: inline-block;
+    color: var(--primary);
+  }
+
+  #hamburger-menu:hover {
+    color: #05afaa;
+  }
+
+  /* main */
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col {
+    width: 80%; /* Mengubah lebar kolom */
+    margin: 20px 0; /* Mengurangi margin atas dan bawah */
+    text-align: center; /* Mengatur teks menjadi rata tengah */
+  }
+
+  .container .col .title {
+    font-size: 48px; /* Mengurangi ukuran font judul */
+  }
+
+  .container .col .text {
+    font-size: 18px; /* Mengurangi ukuran font teks */
+  }
+
+  .container .col img {
+    width: 100%; /* Mengubah lebar gambar menjadi penuh */
+    height: auto; /* Mengatur ketinggian gambar agar proporsional */
+  }
+
+  /* grid */
+  .items-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .items-container .item {
+    width: 80%;
+    height: 200px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .logo,
+  .rights,
+  .social {
+    margin-bottom: 10px;
+  }
+
+  .logo img,
+  .rights img,
+  .social img {
+    width: 30px; /* Ubah sesuai kebutuhan */
+    height: 30px; /* Ubah sesuai kebutuhan */
+  }
+}
+
+/* Mobile Phone */
+@media (max-width: 450px) {
+  html {
+    font-size: 55%;
+  }
+
+  .modal-content {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .logo img,
+  .rights img,
+  .social img {
+    width: 25px; /* Ubah sesuai kebutuhan */
+    height: 25px; /* Ubah sesuai kebutuhan */
+  }
+}
